@@ -1,4 +1,4 @@
-import 'package:SBWL/models/product.dart';
+import 'package:SBWL/providers/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductsProvider with ChangeNotifier {
