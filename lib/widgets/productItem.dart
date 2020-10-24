@@ -43,7 +43,7 @@ class ProductItem extends StatelessWidget {
           ),
           trailing: IconButton(
               icon: Icon(
-                Icons.shopping_bag_outlined,
+                Icons.shopping_cart_outlined,
                 color: Colors.black,
               ),
               onPressed: () {}),
