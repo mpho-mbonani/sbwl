@@ -13,13 +13,19 @@ class CartItem {
       @required this.price});
 }
 
-class Cart with ChangeNotifier {
-  Map<String, CartItem> _items;
+class CartProvider with ChangeNotifier {
+  Map<String, CartItem> _items = {};
   Map<String, CartItem> get items {
     return {..._items};
   }
 
-  void addItem(String productId, double price, String title) {
+  int get productsCount {
+    return _items.length;
+  }
+
+  int get productUnits {}
+
+  void addProduct(String productId, double price, String title) {
     if (_items.containsKey(productId)) {
       _items.update(
           productId,
@@ -39,5 +45,6 @@ class Cart with ChangeNotifier {
         ),
       );
     }
+    notifyListeners();
   }
 }

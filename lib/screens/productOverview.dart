@@ -1,5 +1,8 @@
+import 'package:SBWL/providers/cartProvider.dart';
+import 'package:SBWL/widgets/badge.dart';
 import 'package:SBWL/widgets/productsGrid.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum FilterOptions { Favourites, All }
 
@@ -37,7 +40,17 @@ class _ProductOverviewState extends State<ProductOverview> {
                 value: FilterOptions.All,
               ),
             ],
-          )
+          ),
+          Consumer<CartProvider>(
+            builder: (_, cart, badgeChild) => Badge(
+              child: badgeChild,
+              value: cart.productsCount.toString(),
+            ),
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {},
+            ),
+          ),
         ],
       ),
       body: ProductsGrid(_showFavourites),

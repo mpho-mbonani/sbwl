@@ -1,3 +1,4 @@
+import 'package:SBWL/providers/cartProvider.dart';
 import 'package:SBWL/providers/productsProvider.dart';
 import 'package:SBWL/screens/productDetail.dart';
 import 'package:SBWL/screens/productOverview.dart';
@@ -9,8 +10,15 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ProductsProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ProductsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'SBWL',
