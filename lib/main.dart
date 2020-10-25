@@ -1,5 +1,6 @@
 import 'package:SBWL/providers/cartProvider.dart';
 import 'package:SBWL/providers/productsProvider.dart';
+import 'package:SBWL/screens/cartOverview.dart';
 import 'package:SBWL/screens/productDetail.dart';
 import 'package:SBWL/screens/productOverview.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         home: ProductOverview(),
         routes: {
           ProductDetail.routeName: (context) => ProductDetail(),
+          CartOverview.routeName: (context) => CartOverview(),
         },
       ),
     );

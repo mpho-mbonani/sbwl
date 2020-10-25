@@ -1,4 +1,5 @@
 import 'package:SBWL/providers/cartProvider.dart';
+import 'package:SBWL/screens/cartOverview.dart';
 import 'package:SBWL/widgets/badge.dart';
 import 'package:SBWL/widgets/productsGrid.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,9 @@ class _ProductOverviewState extends State<ProductOverview> {
             ),
             child: IconButton(
               icon: Icon(Icons.shopping_cart),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartOverview.routeName);
+              },
             ),
           ),
         ],
