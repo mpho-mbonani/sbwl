@@ -53,4 +53,9 @@ class CartProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void removeItem(String productId) {
+    _productItems.remove(productId);
+    notifyListeners();
+  }
 }

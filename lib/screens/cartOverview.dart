@@ -20,6 +20,7 @@ class CartOverview extends StatelessWidget {
               itemCount: cart.productsCount,
               itemBuilder: (context, i) => CartItem(
                   id: cart.productItems.values.toList()[i].id,
+                  productId: cart.productItems.keys.toList()[i],
                   title: cart.productItems.values.toList()[i].title,
                   quantity: cart.productItems.values.toList()[i].quantity,
                   price: cart.productItems.values.toList()[i].price),
