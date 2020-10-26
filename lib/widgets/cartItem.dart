@@ -40,7 +40,7 @@ class CartItem extends StatelessWidget {
               padding: const EdgeInsets.all(5.0),
               child: CircleAvatar(
                 child: FittedBox(
-                  child: Text('R$price'),
+                  child: Text('R $price'),
                 ),
               ),
             ),
