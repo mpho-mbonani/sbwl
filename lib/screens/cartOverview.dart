@@ -1,4 +1,5 @@
 import 'package:SBWL/providers/cartProvider.dart';
+import 'package:SBWL/widgets/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,19 @@ class CartOverview extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: cart.productsCount,
+              itemBuilder: (context, i) => CartItem(
+                  id: cart.productItems.values.toList()[i].id,
+                  title: cart.productItems.values.toList()[i].title,
+                  quantity: cart.productItems.values.toList()[i].quantity,
+                  price: cart.productItems.values.toList()[i].price),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
           Card(
             margin: EdgeInsets.all(15),
             child: Padding(
