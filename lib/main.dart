@@ -1,4 +1,5 @@
 import 'package:SBWL/providers/cartProvider.dart';
+import 'package:SBWL/providers/ordersProvider.dart';
 import 'package:SBWL/providers/productsProvider.dart';
 import 'package:SBWL/screens/cartOverview.dart';
 import 'package:SBWL/screens/productDetail.dart';
@@ -18,6 +19,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OrdersProvider(),
         ),
       ],
       child: MaterialApp(

@@ -1,4 +1,5 @@
 import 'package:SBWL/providers/cartProvider.dart';
+import 'package:SBWL/providers/ordersProvider.dart';
 import 'package:SBWL/widgets/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,8 +46,15 @@ class CartOverview extends StatelessWidget {
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   TextButton(
-                    onPressed: () {},
                     child: Text('Order'),
+                    onPressed: () {
+                      Provider.of<OrdersProvider>(context, listen: false)
+                          .addOrder(
+                        cart.productItems.values.toList(),
+                        cart.productItemsTotalAmount,
+                      );
+                      cart.clearCart();
+                    },
                   ),
                 ],
               ),
