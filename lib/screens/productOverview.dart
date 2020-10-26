@@ -18,6 +18,7 @@ class _ProductOverviewState extends State<ProductOverview> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text('SBWL'),
         actions: [
           PopupMenuButton(

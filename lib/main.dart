@@ -42,6 +42,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('SBWL'),
+        backgroundColor: Colors.white,
       ),
       body: Center(
         child: Text('Let\'s build a SBWL!'),

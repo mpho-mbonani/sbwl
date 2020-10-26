@@ -28,6 +28,7 @@ class ProductItem extends StatelessWidget {
           ),
         ),
         footer: GridTileBar(
+          backgroundColor: Colors.white60,
           leading: Consumer<ProductProvider>(
             builder: (ctx, product, _) => IconButton(
                 icon: Icon(
@@ -41,6 +42,7 @@ class ProductItem extends StatelessWidget {
           title: Text(
             product.title,
             textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.black),
           ),
           trailing: IconButton(
               icon: Icon(

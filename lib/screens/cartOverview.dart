@@ -10,6 +10,7 @@ class CartOverview extends StatelessWidget {
     final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text('The Cart'),
       ),
       body: Column(

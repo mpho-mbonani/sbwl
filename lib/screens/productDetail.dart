@@ -10,6 +10,7 @@ class ProductDetail extends StatelessWidget {
         .getbyId(ModalRoute.of(context).settings.arguments as String);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(product.title),
       ),
     );
