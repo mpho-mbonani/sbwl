@@ -17,17 +17,14 @@ class ProductItem extends StatelessWidget {
         //   leading: IconButton(icon: Icon(Icons.tab_outlined), onPressed: () {}),
         //   trailing: IconButton(icon: Icon(Icons.face), onPressed: () {}),
         // ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(100),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context)
-                  .pushNamed(ProductDetail.routeName, arguments: product.id);
-            },
-            child: Image.network(
-              product.imageUrl,
-              fit: BoxFit.cover,
-            ),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed(ProductDetail.routeName, arguments: product.id);
+          },
+          child: Image.network(
+            product.imageUrl,
+            fit: BoxFit.cover,
           ),
         ),
         footer: GridTileBar(
