@@ -2,7 +2,7 @@ import 'package:SBWL/providers/productsProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProductDetail extends StatelessWidget {
+class ProductDetailScreen extends StatelessWidget {
   static const routeName = '/productDetail';
   @override
   Widget build(BuildContext context) {

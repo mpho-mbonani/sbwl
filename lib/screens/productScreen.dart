@@ -1,5 +1,5 @@
 import 'package:SBWL/providers/cartProvider.dart';
-import 'package:SBWL/screens/cartOverview.dart';
+import 'package:SBWL/screens/cartScreen.dart';
 import 'package:SBWL/widgets/badge.dart';
 import 'package:SBWL/widgets/productsGrid.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +7,12 @@ import 'package:provider/provider.dart';
 
 enum FilterOptions { Favourites, All }
 
-class ProductOverview extends StatefulWidget {
+class ProductScreen extends StatefulWidget {
   @override
-  _ProductOverviewState createState() => _ProductOverviewState();
+  _ProductScreenState createState() => _ProductScreenState();
 }
 
-class _ProductOverviewState extends State<ProductOverview> {
+class _ProductScreenState extends State<ProductScreen> {
   bool _showFavourites = false;
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class _ProductOverviewState extends State<ProductOverview> {
             child: IconButton(
               icon: Icon(Icons.shopping_cart),
               onPressed: () {
-                Navigator.of(context).pushNamed(CartOverview.routeName);
+                Navigator.of(context).pushNamed(CartScreen.routeName);
               },
             ),
           ),

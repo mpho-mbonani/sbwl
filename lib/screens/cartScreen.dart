@@ -4,7 +4,7 @@ import 'package:SBWL/widgets/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CartOverview extends StatelessWidget {
+class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
   @override
   Widget build(BuildContext context) {

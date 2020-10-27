@@ -1,6 +1,6 @@
 import 'package:SBWL/providers/cartProvider.dart';
 import 'package:SBWL/providers/productProvider.dart';
-import 'package:SBWL/screens/productDetail.dart';
+import 'package:SBWL/screens/productDetailScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +19,8 @@ class ProductItem extends StatelessWidget {
         // ),
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context)
-                .pushNamed(ProductDetail.routeName, arguments: product.id);
+            Navigator.of(context).pushNamed(ProductDetailScreen.routeName,
+                arguments: product.id);
           },
           child: Image.network(
             product.imageUrl,

@@ -1,9 +1,9 @@
 import 'package:SBWL/providers/cartProvider.dart';
 import 'package:SBWL/providers/ordersProvider.dart';
 import 'package:SBWL/providers/productsProvider.dart';
-import 'package:SBWL/screens/cartOverview.dart';
-import 'package:SBWL/screens/productDetail.dart';
-import 'package:SBWL/screens/productOverview.dart';
+import 'package:SBWL/screens/cartScreen.dart';
+import 'package:SBWL/screens/productDetailScreen.dart';
+import 'package:SBWL/screens/productScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,10 +30,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.grey,
         ),
-        home: ProductOverview(),
+        home: ProductScreen(),
         routes: {
-          ProductDetail.routeName: (context) => ProductDetail(),
-          CartOverview.routeName: (context) => CartOverview(),
+          ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
+          CartScreen.routeName: (context) => CartScreen(),
         },
       ),
     );
