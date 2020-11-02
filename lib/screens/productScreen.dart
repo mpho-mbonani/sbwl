@@ -1,6 +1,7 @@
 import 'package:SBWL/providers/cartProvider.dart';
 import 'package:SBWL/screens/cartScreen.dart';
 import 'package:SBWL/widgets/badge.dart';
+import 'package:SBWL/widgets/menu.dart';
 import 'package:SBWL/widgets/productsGrid.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -57,6 +58,7 @@ class _ProductScreenState extends State<ProductScreen> {
           ),
         ],
       ),
+      drawer: Menu(),
       body: ProductsGrid(_showFavourites),
     );
   }

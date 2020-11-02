@@ -1,4 +1,5 @@
 import 'package:SBWL/providers/productsProvider.dart';
+import 'package:SBWL/widgets/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,7 @@ class ProductDetailScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(product.title),
       ),
+      drawer: Menu(),
       body: SingleChildScrollView(
         child: Column(
           children: [

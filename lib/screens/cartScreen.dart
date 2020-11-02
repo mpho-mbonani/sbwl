@@ -1,6 +1,7 @@
 import 'package:SBWL/providers/cartProvider.dart';
 import 'package:SBWL/providers/ordersProvider.dart';
 import 'package:SBWL/widgets/cartItem.dart';
+import 'package:SBWL/widgets/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,7 @@ class CartScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text('The Cart'),
       ),
+      drawer: Menu(),
       body: Column(
         children: [
           Expanded(
