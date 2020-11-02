@@ -8,7 +8,7 @@ class Menu extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text('Menu'),
+            title: Text('SBWL'),
             automaticallyImplyLeading: false,
           ),
           Divider(),

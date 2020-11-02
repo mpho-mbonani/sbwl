@@ -1,5 +1,6 @@
 import 'package:SBWL/providers/cartProvider.dart';
 import 'package:SBWL/providers/ordersProvider.dart';
+import 'package:SBWL/screens/ordersScreen.dart';
 import 'package:SBWL/widgets/cartItem.dart';
 import 'package:SBWL/widgets/menu.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,8 @@ class CartScreen extends StatelessWidget {
                         cart.productItemsTotalAmount,
                       );
                       cart.clearCart();
+                      Navigator.of(context)
+                          .pushReplacementNamed(OrdersScreen.routeName);
                     },
                   ),
                 ],

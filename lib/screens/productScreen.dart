@@ -22,28 +22,22 @@ class _ProductScreenState extends State<ProductScreen> {
         backgroundColor: Colors.white,
         title: Text('SBWL'),
         actions: [
-          PopupMenuButton(
-            onSelected: (FilterOptions selectedValue) {
-              setState(() {
-                if (selectedValue == FilterOptions.Favourites) {
-                  _showFavourites = true;
-                } else {
-                  _showFavourites = false;
-                }
-              });
-            },
-            icon: Icon(Icons.more_vert),
-            itemBuilder: (_) => [
-              PopupMenuItem(
-                child: Text('Favourites'),
-                value: FilterOptions.Favourites,
-              ),
-              PopupMenuItem(
-                child: Text('All'),
-                value: FilterOptions.All,
-              ),
-            ],
-          ),
+          IconButton(
+              icon: Icon(Icons.border_all),
+              onPressed: () => {
+                    FilterOptions.All,
+                    setState(() {
+                      _showFavourites = false;
+                    })
+                  }),
+          IconButton(
+              icon: Icon(Icons.favorite),
+              onPressed: () => {
+                    FilterOptions.Favourites,
+                    setState(() {
+                      _showFavourites = true;
+                    })
+                  }),
           Consumer<CartProvider>(
             builder: (_, cart, badgeChild) => Badge(
               child: badgeChild,
