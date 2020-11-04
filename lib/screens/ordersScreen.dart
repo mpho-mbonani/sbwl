@@ -11,6 +11,7 @@ class OrdersScreen extends StatelessWidget {
     final ordersProvider = Provider.of<OrdersProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text('Orders'),
       ),
       drawer: Menu(),
