@@ -1,5 +1,7 @@
+import 'package:SBWL/providers/productsProvider.dart';
 import 'package:SBWL/screens/upsertProductScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ManageProductItem extends StatelessWidget {
   final String id;
@@ -30,7 +32,10 @@ class ManageProductItem extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).errorColor,
-                onPressed: () {})
+                onPressed: () {
+                  Provider.of<ProductsProvider>(context, listen: false)
+                      .deleteProduct(id);
+                })
           ],
         ),
       ),
