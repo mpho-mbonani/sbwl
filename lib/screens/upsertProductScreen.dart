@@ -16,10 +16,14 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
   final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
 
+  ProductProvider upsertedProduct;
+  String productId;
   String productTitle;
   double productPrice;
   String productDescription;
   String productImageUrl;
+  bool productIsFavourite;
+  bool _isInit = true;
 
   @override
   void initState() {
@@ -50,18 +54,53 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
     }
   }
 
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      productId = ModalRoute.of(context).settings.arguments as String;
+
+      if (productId != null) {
+        upsertedProduct = Provider.of<ProductsProvider>(context, listen: false)
+            .getbyId(productId);
+        productId = upsertedProduct.id;
+        productTitle = upsertedProduct.title;
+        productPrice = upsertedProduct.price;
+        productDescription = upsertedProduct.description;
+        productImageUrl = upsertedProduct.imageUrl;
+        productIsFavourite = upsertedProduct.isFavourite;
+
+        _imageUrlController.text = productImageUrl;
+      }
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   void _saveForm() {
     if (_form.currentState.validate()) {
       _form.currentState.save();
-      ProductProvider upsertedProduct = ProductProvider(
-        id: null,
-        title: productTitle,
-        price: productPrice,
-        description: productDescription,
-        imageUrl: productImageUrl,
-      );
-      Provider.of<ProductsProvider>(context, listen: false)
-          .addProduct(upsertedProduct);
+      if (productId != null) {
+        upsertedProduct = ProductProvider(
+          id: productId,
+          title: productTitle,
+          price: productPrice,
+          description: productDescription,
+          imageUrl: productImageUrl,
+          isFavourite: productIsFavourite,
+        );
+        Provider.of<ProductsProvider>(context, listen: false)
+            .updateProduct(productId, upsertedProduct);
+      } else {
+        upsertedProduct = ProductProvider(
+          id: null,
+          title: productTitle,
+          price: productPrice,
+          description: productDescription,
+          imageUrl: productImageUrl,
+        );
+        Provider.of<ProductsProvider>(context, listen: false)
+            .addProduct(upsertedProduct);
+      }
       Navigator.of(context).pop();
     }
   }
@@ -83,6 +122,7 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
           child: ListView(
             children: [
               TextFormField(
+                initialValue: productTitle,
                 decoration: InputDecoration(labelText: 'Title'),
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_priceFocusNode);
@@ -99,6 +139,8 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
                 },
               ),
               TextFormField(
+                initialValue:
+                    productPrice == null ? '' : productPrice.toStringAsFixed(2),
                 decoration: InputDecoration(labelText: 'Price'),
                 keyboardType: TextInputType.number,
                 focusNode: _priceFocusNode,
@@ -122,6 +164,7 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
                 },
               ),
               TextFormField(
+                initialValue: productDescription,
                 decoration: InputDecoration(labelText: 'Description'),
                 maxLines: 2,
                 keyboardType: TextInputType.multiline,

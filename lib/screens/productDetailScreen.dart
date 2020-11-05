@@ -28,7 +28,7 @@ class ProductDetailScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Text('R ${productProvider.price}'),
+            Text('R ${productProvider.price.toStringAsFixed(2)}'),
             SizedBox(height: 10),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),

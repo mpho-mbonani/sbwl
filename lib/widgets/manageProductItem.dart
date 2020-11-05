@@ -1,10 +1,12 @@
+import 'package:SBWL/screens/upsertProductScreen.dart';
 import 'package:flutter/material.dart';
 
 class ManageProductItem extends StatelessWidget {
+  final String id;
   final String title;
   final String imageUrl;
 
-  const ManageProductItem({Key key, this.title, this.imageUrl})
+  const ManageProductItem({Key key, this.id, this.title, this.imageUrl})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,12 @@ class ManageProductItem extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-                icon: Icon(Icons.edit), color: Colors.grey, onPressed: () {}),
+                icon: Icon(Icons.edit),
+                color: Colors.grey,
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(UpsertProductScreen.routeName, arguments: id);
+                }),
             VerticalDivider(),
             IconButton(
                 icon: Icon(Icons.delete),

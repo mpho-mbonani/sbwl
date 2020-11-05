@@ -2,7 +2,7 @@ import 'package:SBWL/providers/productProvider.dart';
 import 'package:flutter/material.dart';
 
 class ProductsProvider with ChangeNotifier {
-  List<ProductProvider> _items = [
+  List<ProductProvider> _products = [
     ProductProvider(
       id: 'p1',
       title: 'Red Shirt',
@@ -38,17 +38,17 @@ class ProductsProvider with ChangeNotifier {
   ];
 
   List<ProductProvider> get favourites {
-    return _items
+    return _products
         .where((ProductProvider) => ProductProvider.isFavourite)
         .toList();
   }
 
   List<ProductProvider> get all {
-    return [..._items];
+    return [..._products];
   }
 
   ProductProvider getbyId(String id) {
-    return _items.firstWhere((product) => product.id == id);
+    return _products.firstWhere((product) => product.id == id);
   }
 
   void addProduct(ProductProvider product) {
@@ -59,7 +59,13 @@ class ProductsProvider with ChangeNotifier {
       description: product.description,
       imageUrl: product.imageUrl,
     );
-    _items.insert(0, newProduct);
+    _products.insert(0, newProduct);
+    notifyListeners();
+  }
+
+  void updateProduct(String id, ProductProvider product) {
+    final productIndex = _products.indexWhere((prod) => prod.id == id);
+    _products[productIndex] = product;
     notifyListeners();
   }
 }
