@@ -1,6 +1,7 @@
 import 'package:SBWL/providers/cartProvider.dart';
 import 'package:SBWL/providers/ordersProvider.dart';
 import 'package:SBWL/providers/productsProvider.dart';
+import 'package:SBWL/screens/manageProductsScreen.dart';
 import 'package:SBWL/screens/cartScreen.dart';
 import 'package:SBWL/screens/productDetailScreen.dart';
 import 'package:SBWL/screens/productScreen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),
           OrdersScreen.routeName: (context) => OrdersScreen(),
+          ManageProductsScreen.routeName: (context) => ManageProductsScreen()
         },
       ),
     );
