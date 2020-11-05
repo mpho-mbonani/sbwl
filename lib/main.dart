@@ -4,7 +4,7 @@ import 'package:SBWL/providers/productsProvider.dart';
 import 'package:SBWL/screens/manageProductsScreen.dart';
 import 'package:SBWL/screens/cartScreen.dart';
 import 'package:SBWL/screens/productDetailScreen.dart';
-import 'package:SBWL/screens/productScreen.dart';
+import 'package:SBWL/screens/productsScreen.dart';
 import 'package:SBWL/screens/upsertProductScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.lime,
         ),
-        home: ProductScreen(),
+        home: ProductsScreen(),
         routes: {
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),

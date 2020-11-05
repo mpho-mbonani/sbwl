@@ -8,12 +8,12 @@ import 'package:provider/provider.dart';
 
 enum FilterOptions { Favourites, All }
 
-class ProductScreen extends StatefulWidget {
+class ProductsScreen extends StatefulWidget {
   @override
-  _ProductScreenState createState() => _ProductScreenState();
+  _ProductsScreenState createState() => _ProductsScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _ProductsScreenState extends State<ProductsScreen> {
   bool _showFavourites = false;
   @override
   Widget build(BuildContext context) {
@@ -22,22 +22,23 @@ class _ProductScreenState extends State<ProductScreen> {
         backgroundColor: Colors.white,
         title: Text('SBWL'),
         actions: [
-          IconButton(
-              icon: Icon(Icons.border_all),
-              onPressed: () => {
-                    FilterOptions.All,
-                    setState(() {
-                      _showFavourites = false;
-                    })
-                  }),
-          IconButton(
-              icon: Icon(Icons.favorite),
-              onPressed: () => {
-                    FilterOptions.Favourites,
-                    setState(() {
-                      _showFavourites = true;
-                    })
-                  }),
+          _showFavourites
+              ? IconButton(
+                  icon: Icon(Icons.grid_view),
+                  onPressed: () => {
+                        FilterOptions.All,
+                        setState(() {
+                          _showFavourites = false;
+                        })
+                      })
+              : IconButton(
+                  icon: Icon(Icons.favorite_border),
+                  onPressed: () => {
+                        FilterOptions.Favourites,
+                        setState(() {
+                          _showFavourites = true;
+                        })
+                      }),
           Consumer<CartProvider>(
             builder: (_, cart, badgeChild) => Badge(
               child: badgeChild,

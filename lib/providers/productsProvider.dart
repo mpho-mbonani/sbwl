@@ -39,7 +39,7 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductProvider> get favourites {
     return _products
-        .where((ProductProvider) => ProductProvider.isFavourite)
+        .where((ProductProvider productProvider) => productProvider.isFavourite)
         .toList();
   }
 
