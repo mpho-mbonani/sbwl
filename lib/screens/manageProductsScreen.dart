@@ -4,6 +4,8 @@ import 'package:SBWL/widgets/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'upsertProductScreen.dart';
+
 class ManageProductsScreen extends StatelessWidget {
   static const routeName = '/addProducts';
   @override
@@ -14,7 +16,13 @@ class ManageProductsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text('Add Products'),
-        actions: [IconButton(icon: Icon(Icons.add), onPressed: () {})],
+        actions: [
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).pushNamed(UpsertProductScreen.routeName);
+              })
+        ],
       ),
       drawer: Menu(),
       body: Padding(

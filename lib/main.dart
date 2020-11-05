@@ -5,6 +5,7 @@ import 'package:SBWL/screens/manageProductsScreen.dart';
 import 'package:SBWL/screens/cartScreen.dart';
 import 'package:SBWL/screens/productDetailScreen.dart';
 import 'package:SBWL/screens/productScreen.dart';
+import 'package:SBWL/screens/upsertProductScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,30 +32,16 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'SBWL',
         theme: ThemeData(
-          primarySwatch: Colors.grey,
+          primarySwatch: Colors.lime,
         ),
         home: ProductScreen(),
         routes: {
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),
           OrdersScreen.routeName: (context) => OrdersScreen(),
-          ManageProductsScreen.routeName: (context) => ManageProductsScreen()
+          ManageProductsScreen.routeName: (context) => ManageProductsScreen(),
+          UpsertProductScreen.routeName: (context) => UpsertProductScreen()
         },
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('SBWL'),
-        backgroundColor: Colors.white,
-      ),
-      body: Center(
-        child: Text('Let\'s build a SBWL!'),
       ),
     );
   }

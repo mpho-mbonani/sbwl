@@ -18,9 +18,7 @@ class ManageProductItem extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-                icon: Icon(Icons.edit),
-                color: Theme.of(context).primaryColor,
-                onPressed: () {}),
+                icon: Icon(Icons.edit), color: Colors.grey, onPressed: () {}),
             IconButton(
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).errorColor,
