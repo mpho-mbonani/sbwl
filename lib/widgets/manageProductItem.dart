@@ -14,11 +14,12 @@ class ManageProductItem extends StatelessWidget {
       ),
       title: Text(title),
       trailing: Container(
-        width: 100,
+        width: 120,
         child: Row(
           children: [
             IconButton(
                 icon: Icon(Icons.edit), color: Colors.grey, onPressed: () {}),
+            VerticalDivider(),
             IconButton(
                 icon: Icon(Icons.delete),
                 color: Theme.of(context).errorColor,

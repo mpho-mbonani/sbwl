@@ -5,9 +5,7 @@ class ProductProvider with ChangeNotifier {
   final String title;
   final String description;
   final double price;
-  final double cost;
   final String imageUrl;
-  final String category;
   bool isFavourite;
 
   ProductProvider(
@@ -16,8 +14,6 @@ class ProductProvider with ChangeNotifier {
       @required this.description,
       @required this.price,
       @required this.imageUrl,
-      this.cost,
-      this.category,
       this.isFavourite = false});
 
   void toggleFavourite() {
