@@ -1,4 +1,5 @@
 import 'package:SBWL/providers/cartProvider.dart';
+import 'package:SBWL/providers/productsProvider.dart';
 import 'package:SBWL/screens/cartScreen.dart';
 import 'package:SBWL/widgets/badge.dart';
 import 'package:SBWL/widgets/menu.dart';
@@ -15,6 +16,24 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   bool _showFavourites = false;
+  bool _isInit = true;
+  bool _isLoading = false;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      _isLoading = true;
+      Provider.of<ProductsProvider>(context).fetchAndSetProducts().then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +73,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
         ],
       ),
       drawer: Menu(),
-      body: ProductsGrid(_showFavourites),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ProductsGrid(_showFavourites),
     );
   }
 }
