@@ -55,9 +55,9 @@ class ProductsProvider with ChangeNotifier {
     return _products.firstWhere((product) => product.id == id);
   }
 
-  void addProduct(ProductProvider product) {
+  Future<void> addProduct(ProductProvider product) {
     const url = 'https://xazululo-sbwl.firebaseio.com/products.json';
-    http
+    return http
         .post(url,
             body: json.encode({
               'title': product.title,
@@ -75,8 +75,8 @@ class ProductsProvider with ChangeNotifier {
         imageUrl: product.imageUrl,
       );
       _products.insert(0, newProduct);
+      notifyListeners();
     });
-    notifyListeners();
   }
 
   void updateProduct(String id, ProductProvider product) {
