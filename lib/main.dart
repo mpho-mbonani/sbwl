@@ -1,15 +1,15 @@
-import 'package:SBWL/providers/cartProvider.dart';
-import 'package:SBWL/providers/ordersProvider.dart';
-import 'package:SBWL/providers/productsProvider.dart';
-import 'package:SBWL/screens/manageProductsScreen.dart';
-import 'package:SBWL/screens/cartScreen.dart';
-import 'package:SBWL/screens/productDetailScreen.dart';
-import 'package:SBWL/screens/productsScreen.dart';
-import 'package:SBWL/screens/upsertProductScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/ordersScreen.dart';
+import 'providers/ordersProvider.dart';
+import 'providers/cartProvider.dart';
+import 'providers/productsProvider.dart';
+import 'screens/manageProductsScreen.dart';
+import 'screens/cartScreen.dart';
+import 'screens/productDetailScreen.dart';
+import 'screens/productsScreen.dart';
+import 'screens/upsertProductScreen.dart';
 
 void main() => runApp(MyApp());
 

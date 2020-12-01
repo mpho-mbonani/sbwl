@@ -1,5 +1,9 @@
-import 'package:SBWL/providers/productProvider.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'productProvider.dart';
 
 class ProductsProvider with ChangeNotifier {
   List<ProductProvider> _products = [
@@ -52,14 +56,26 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void addProduct(ProductProvider product) {
-    final newProduct = ProductProvider(
-      id: DateTime.now().toString(),
-      title: product.title,
-      price: product.price,
-      description: product.description,
-      imageUrl: product.imageUrl,
-    );
-    _products.insert(0, newProduct);
+    const url = 'https://xazululo-sbwl.firebaseio.com/products.json';
+    http
+        .post(url,
+            body: json.encode({
+              'title': product.title,
+              'price': product.price,
+              'description': product.description,
+              'imageUrl': product.imageUrl,
+              'isFavourite': product.isFavourite,
+            }))
+        .then((response) {
+      final newProduct = ProductProvider(
+        id: json.decode(response.body)['name'],
+        title: product.title,
+        price: product.price,
+        description: product.description,
+        imageUrl: product.imageUrl,
+      );
+      _products.insert(0, newProduct);
+    });
     notifyListeners();
   }
 
