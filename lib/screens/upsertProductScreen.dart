@@ -16,7 +16,7 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
   final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
 
-  ProductProvider upsertedProduct;
+  ProductProvider loadedProduct;
   String productId;
   String productTitle;
   double productPrice;
@@ -61,14 +61,14 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
       productId = ModalRoute.of(context).settings.arguments as String;
 
       if (productId != null) {
-        upsertedProduct = Provider.of<ProductsProvider>(context, listen: false)
+        loadedProduct = Provider.of<ProductsProvider>(context, listen: false)
             .getbyId(productId);
-        productId = upsertedProduct.id;
-        productTitle = upsertedProduct.title;
-        productPrice = upsertedProduct.price;
-        productDescription = upsertedProduct.description;
-        productImageUrl = upsertedProduct.imageUrl;
-        productIsFavourite = upsertedProduct.isFavourite;
+        productId = loadedProduct.id;
+        productTitle = loadedProduct.title;
+        productPrice = loadedProduct.price;
+        productDescription = loadedProduct.description;
+        productImageUrl = loadedProduct.imageUrl;
+        productIsFavourite = loadedProduct.isFavourite;
 
         _imageUrlController.text = productImageUrl;
       }
@@ -86,31 +86,19 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
       });
 
       if (productId != null) {
-        upsertedProduct = ProductProvider(
-          id: productId,
-          title: productTitle,
-          price: productPrice,
-          description: productDescription,
-          imageUrl: productImageUrl,
-          isFavourite: productIsFavourite,
-        );
-        Provider.of<ProductsProvider>(context, listen: false)
-            .updateProduct(productId, upsertedProduct);
-        setState(() {
-          _isLoading = false;
-        });
-        Navigator.of(context).pop();
-      } else {
-        upsertedProduct = ProductProvider(
-          id: null,
-          title: productTitle,
-          price: productPrice,
-          description: productDescription,
-          imageUrl: productImageUrl,
-        );
         try {
           await Provider.of<ProductsProvider>(context, listen: false)
-              .addProduct(upsertedProduct);
+              .updateProduct(
+            productId,
+            ProductProvider(
+              id: productId,
+              title: productTitle,
+              price: productPrice,
+              description: productDescription,
+              imageUrl: productImageUrl,
+              isFavourite: productIsFavourite,
+            ),
+          );
         } catch (error) {
           await showDialog(
             context: context,
@@ -127,13 +115,41 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
               ],
             ),
           );
-        } finally {
-          setState(() {
-            _isLoading = false;
-          });
-          Navigator.of(context).pop();
+        }
+      } else {
+        try {
+          await Provider.of<ProductsProvider>(context, listen: false)
+              .addProduct(
+            ProductProvider(
+              id: null,
+              title: productTitle,
+              price: productPrice,
+              description: productDescription,
+              imageUrl: productImageUrl,
+            ),
+          );
+        } catch (error) {
+          await showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text('Something Went Wrong'),
+              content: Text('We ran out of rope while pulling from the cloud'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: Text('Okay'),
+                )
+              ],
+            ),
+          );
         }
       }
+      setState(() {
+        _isLoading = false;
+      });
+      Navigator.of(context).pop();
     }
   }
 

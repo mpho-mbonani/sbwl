@@ -72,14 +72,36 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
-  void updateProduct(String id, ProductProvider product) {
+  Future<void> updateProduct(String id, ProductProvider product) async {
     final productIndex = _products.indexWhere((prod) => prod.id == id);
-    _products[productIndex] = product;
-    notifyListeners();
+    final patchUrl = 'https://xazululo-sbwl.firebaseio.com/products/$id.json';
+    try {
+      await http.patch(patchUrl,
+          body: json.encode({
+            'title': product.title,
+            'price': product.price,
+            'description': product.description,
+            'imageUrl': product.imageUrl,
+          }));
+      _products[productIndex] = product;
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
   }
 
-  void deleteProduct(String id) {
-    _products.removeWhere((prod) => prod.id == id);
+  Future<void> deleteProduct(String id) async {
+    final deleteUrl = 'https://xazululo-sbwl.firebaseio.com/products/$id.json';
+    final existingProductIndex = _products.indexWhere((prod) => prod.id == id);
+    var existingProduct = _products[existingProductIndex];
+    _products.removeAt(existingProductIndex);
     notifyListeners();
+    final response = await http.delete(deleteUrl);
+    if (response.statusCode >= 400) {
+      _products.insert(existingProductIndex, existingProduct);
+      notifyListeners();
+      throw Exception();
+    }
+    existingProduct = null;
   }
 }

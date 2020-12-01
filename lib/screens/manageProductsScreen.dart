@@ -8,6 +8,11 @@ import 'upsertProductScreen.dart';
 
 class ManageProductsScreen extends StatelessWidget {
   static const routeName = '/addProducts';
+
+  Future<void> _refreshProducts(BuildContext context) async {
+    await Provider.of<ProductsProvider>(context).fetchAndSetProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final productProvider =
@@ -25,19 +30,22 @@ class ManageProductsScreen extends StatelessWidget {
         ],
       ),
       drawer: Menu(),
-      body: Padding(
-        padding: EdgeInsets.all(8),
-        child: ListView.builder(
-          itemCount: productProvider.all.length,
-          itemBuilder: (_, i) => Column(
-            children: [
-              ManageProductItem(
-                id: productProvider.all[i].id,
-                title: productProvider.all[i].title,
-                imageUrl: productProvider.all[i].imageUrl,
-              ),
-              Divider()
-            ],
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: ListView.builder(
+            itemCount: productProvider.all.length,
+            itemBuilder: (_, i) => Column(
+              children: [
+                ManageProductItem(
+                  id: productProvider.all[i].id,
+                  title: productProvider.all[i].title,
+                  imageUrl: productProvider.all[i].imageUrl,
+                ),
+                Divider()
+              ],
+            ),
           ),
         ),
       ),
