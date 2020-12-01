@@ -55,28 +55,32 @@ class ProductsProvider with ChangeNotifier {
     return _products.firstWhere((product) => product.id == id);
   }
 
-  Future<void> addProduct(ProductProvider product) {
+  Future<void> addProduct(ProductProvider product) async {
     const url = 'https://xazululo-sbwl.firebaseio.com/products.json';
-    return http
-        .post(url,
-            body: json.encode({
-              'title': product.title,
-              'price': product.price,
-              'description': product.description,
-              'imageUrl': product.imageUrl,
-              'isFavourite': product.isFavourite,
-            }))
-        .then((response) {
-      final newProduct = ProductProvider(
-        id: json.decode(response.body)['name'],
-        title: product.title,
-        price: product.price,
-        description: product.description,
-        imageUrl: product.imageUrl,
+    try {
+      final response = await http.post(url,
+          body: json.encode({
+            'title': product.title,
+            'price': product.price,
+            'description': product.description,
+            'imageUrl': product.imageUrl,
+            'isFavourite': product.isFavourite,
+          }));
+
+      _products.insert(
+        0,
+        ProductProvider(
+          id: json.decode(response.body)['name'],
+          title: product.title,
+          price: product.price,
+          description: product.description,
+          imageUrl: product.imageUrl,
+        ),
       );
-      _products.insert(0, newProduct);
       notifyListeners();
-    });
+    } catch (error) {
+      throw error;
+    }
   }
 
   void updateProduct(String id, ProductProvider product) {

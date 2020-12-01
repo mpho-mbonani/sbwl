@@ -77,7 +77,7 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
     super.didChangeDependencies();
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     if (_form.currentState.validate()) {
       _form.currentState.save();
 
@@ -97,7 +97,7 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
         Provider.of<ProductsProvider>(context, listen: false)
             .updateProduct(productId, upsertedProduct);
         setState(() {
-          _isLoading = true;
+          _isLoading = false;
         });
         Navigator.of(context).pop();
       } else {
@@ -108,14 +108,31 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
           description: productDescription,
           imageUrl: productImageUrl,
         );
-        Provider.of<ProductsProvider>(context, listen: false)
-            .addProduct(upsertedProduct)
-            .then((_) {
+        try {
+          await Provider.of<ProductsProvider>(context, listen: false)
+              .addProduct(upsertedProduct);
+        } catch (error) {
+          await showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text('Something Went Wrong'),
+              content: Text('We ran out of rope while pulling from the cloud'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: Text('Okay'),
+                )
+              ],
+            ),
+          );
+        } finally {
           setState(() {
-            _isLoading = true;
+            _isLoading = false;
           });
           Navigator.of(context).pop();
-        });
+        }
       }
     }
   }
