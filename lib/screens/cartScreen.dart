@@ -49,25 +49,53 @@ class CartScreen extends StatelessWidget {
                         'R ${cart.productItemsTotalAmount.toStringAsFixed(2)}'),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
-                  TextButton(
-                    child: Text('Order'),
-                    onPressed: () {
-                      Provider.of<OrdersProvider>(context, listen: false)
-                          .addOrder(
-                        cart.productItems.values.toList(),
-                        cart.productItemsTotalAmount,
-                      );
-                      cart.clearCart();
-                      Navigator.of(context)
-                          .pushReplacementNamed(OrdersScreen.routeName);
-                    },
-                  ),
+                  OrderButton(cart: cart),
                 ],
               ),
             ),
           )
         ],
       ),
+    );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  const OrderButton({
+    Key key,
+    @required this.cart,
+  }) : super(key: key);
+
+  final CartProvider cart;
+
+  @override
+  _OrderButtonState createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  bool _isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      child: _isLoading ? CircularProgressIndicator() : Text('Order'),
+      onPressed: (widget.cart.productItemsTotalAmount <= 0 || _isLoading)
+          ? null
+          : () async {
+              setState(() {
+                _isLoading = true;
+              });
+              await Provider.of<OrdersProvider>(context, listen: false)
+                  .addOrder(
+                widget.cart.productItems.values.toList(),
+                widget.cart.productItemsTotalAmount,
+              );
+              setState(() {
+                _isLoading = false;
+              });
+              widget.cart.clearCart();
+              Navigator.of(context)
+                  .pushReplacementNamed(OrdersScreen.routeName);
+            },
     );
   }
 }

@@ -1,5 +1,9 @@
-import 'package:SBWL/providers/cartProvider.dart';
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import '../providers/cartProvider.dart';
 
 class OrderProduct {
   final String id;
@@ -21,14 +25,33 @@ class OrdersProvider with ChangeNotifier {
     return [..._orders];
   }
 
-  void addOrder(List<CartProduct> cartProducts, double totalAmount) {
+  Future<void> addOrder(
+      List<CartProduct> cartProducts, double totalAmount) async {
+    final url = 'https://xazululo-sbwl.firebaseio.com/orders.json';
+    final timeStamp = DateTime.now();
+    final response = await http.post(
+      url,
+      body: json.encode({
+        'id': DateTime.now().toString(),
+        'amount': totalAmount,
+        'products': cartProducts
+            .map((cp) => {
+                  'id': cp.id,
+                  'title': cp.title,
+                  'quantity': cp.quantity,
+                  'price': cp.price
+                })
+            .toList(),
+        'dateTime': timeStamp.toIso8601String(),
+      }),
+    );
     _orders.insert(
       0,
       OrderProduct(
-        id: DateTime.now().toString(),
+        id: json.decode(response.body)['name'],
         amount: totalAmount,
         products: cartProducts,
-        dateTime: DateTime.now(),
+        dateTime: timeStamp,
       ),
     );
     notifyListeners();

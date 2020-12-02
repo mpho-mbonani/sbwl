@@ -132,14 +132,15 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
           await showDialog(
             context: context,
             builder: (ctx) => AlertDialog(
-              title: Text('Something Went Wrong'),
-              content: Text('We ran out of rope while pulling from the cloud'),
+              title: Text('Eh! Something Went Wrong.'),
+              content: Text(
+                  'Eish... Yah. Noh, We Ran Out Of Rope While Pulling Your Data From The Cloud.'),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
-                  child: Text('Okay'),
+                  child: Text('Shap'),
                 )
               ],
             ),
