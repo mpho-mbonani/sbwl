@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:SBWL/widgets/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,6 +24,34 @@ class OrdersProvider with ChangeNotifier {
 
   List<OrderProduct> get orders {
     return [..._orders];
+  }
+
+  Future<void> fetchAndSetOrders() async {
+    final url = 'https://xazululo-sbwl.firebaseio.com/orders.json';
+    final response = await http.get(url);
+    final List<OrderProduct> loadedOrders = [];
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    if (extractedData != null) {
+      extractedData.forEach((orderId, orderData) {
+        loadedOrders.add(
+          OrderProduct(
+            id: orderId,
+            amount: orderData['amount'],
+            products: (orderData['products'] as List<dynamic>)
+                .map((op) => CartProduct(
+                      id: op['id'],
+                      title: op['title'],
+                      quantity: op['quantity'],
+                      price: op['price'],
+                    ))
+                .toList(),
+            dateTime: DateTime.parse(orderData['dateTime']),
+          ),
+        );
+      });
+      _orders = loadedOrders.reversed.toList();
+      notifyListeners();
+    }
   }
 
   Future<void> addOrder(
