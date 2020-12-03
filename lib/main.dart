@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/authScreen.dart';
 import 'screens/ordersScreen.dart';
 import 'providers/ordersProvider.dart';
 import 'providers/cartProvider.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.lime,
         ),
-        home: ProductsScreen(),
+        home: AuthScreen(),
         routes: {
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),
