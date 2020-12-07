@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/authProvider.dart';
+import 'screens/splash_screen.dart';
 import 'screens/authScreen.dart';
 import 'screens/ordersScreen.dart';
 import 'providers/ordersProvider.dart';
@@ -48,7 +49,14 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.lime,
           ),
-          home: authProvider.isAuthenticated ? ProductsScreen() : AuthScreen(),
+          home: authProvider.isAuthenticated
+              ? ProductsScreen()
+              : FutureBuilder(
+                  future: authProvider.autoLogin(),
+                  builder: (ctx, previousState) =>
+                      previousState.connectionState == ConnectionState.waiting
+                          ? SplashScreen()
+                          : AuthScreen()),
           routes: {
             ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
             CartScreen.routeName: (context) => CartScreen(),
