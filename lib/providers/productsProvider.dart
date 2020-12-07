@@ -7,10 +7,11 @@ import 'productProvider.dart';
 
 class ProductsProvider with ChangeNotifier {
   final String authToken;
+  final String userId;
   String url;
   List<ProductProvider> _products = [];
 
-  ProductsProvider(this.authToken, this._products) {
+  ProductsProvider(this.authToken, this.userId, this._products) {
     this.url =
         'https://xazululo-sbwl.firebaseio.com/products.json?auth=$authToken';
   }
@@ -33,6 +34,12 @@ class ProductsProvider with ChangeNotifier {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
+
+      url =
+          'https://xazululo-sbwl.firebaseio.com/userFavourites/$userId.json?auth=$authToken';
+      final favouritesResponse = await http.get(url);
+      final favouritesData = json.decode(favouritesResponse.body);
+
       final List<ProductProvider> loadedProducts = [];
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(
@@ -41,7 +48,9 @@ class ProductsProvider with ChangeNotifier {
               title: prodData['title'],
               description: prodData['description'],
               price: prodData['price'],
-              isFavourite: prodData['isFavourite'],
+              isFavourite: favouritesData == null
+                  ? false
+                  : favouritesData[prodId] ?? false,
               imageUrl: prodData['imageUrl']),
         );
       });
@@ -60,7 +69,6 @@ class ProductsProvider with ChangeNotifier {
             'price': product.price,
             'description': product.description,
             'imageUrl': product.imageUrl,
-            'isFavourite': product.isFavourite,
           }));
 
       _products.add(
