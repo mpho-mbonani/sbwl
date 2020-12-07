@@ -21,8 +21,9 @@ class OrderProduct {
 class OrdersProvider with ChangeNotifier {
   List<OrderProduct> _orders = [];
   final String authToken;
+  final String userId;
 
-  OrdersProvider(this.authToken, this._orders);
+  OrdersProvider(this.authToken, this.userId, this._orders);
 
   List<OrderProduct> get orders {
     return [..._orders];
@@ -30,7 +31,7 @@ class OrdersProvider with ChangeNotifier {
 
   Future<void> fetchAndSetOrders() async {
     final url =
-        'https://xazululo-sbwl.firebaseio.com/orders.json?auth=$authToken';
+        'https://xazululo-sbwl.firebaseio.com/orders/$userId.json?auth=$authToken';
     final response = await http.get(url);
     final List<OrderProduct> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -61,7 +62,7 @@ class OrdersProvider with ChangeNotifier {
       List<CartProduct> cartProducts, double totalAmount) async {
     // add error handling
     final url =
-        'https://xazululo-sbwl.firebaseio.com/orders.json?auth=$authToken';
+        'https://xazululo-sbwl.firebaseio.com/orders/$userId.json?auth=$authToken';
     final timeStamp = DateTime.now();
     final response = await http.post(
       url,

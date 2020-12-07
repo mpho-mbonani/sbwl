@@ -30,14 +30,21 @@ class ProductsProvider with ChangeNotifier {
     return _products.firstWhere((product) => product.id == id);
   }
 
-  Future<void> fetchAndSetProducts() async {
-    try {
-      final response = await http.get(url);
-      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+  Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
+    final filterString =
+        filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+    var getUrl =
+        'https://xazululo-sbwl.firebaseio.com/products.json?auth=$authToken&$filterString';
 
-      url =
-          'https://xazululo-sbwl.firebaseio.com/userFavourites/$userId.json?auth=$authToken';
-      final favouritesResponse = await http.get(url);
+    try {
+      final response = await http.get(getUrl);
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+      if (extractedData == null) {
+        return;
+      }
+      getUrl =
+          'https://xazululo-sbwl.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+      final favouritesResponse = await http.get(getUrl);
       final favouritesData = json.decode(favouritesResponse.body);
 
       final List<ProductProvider> loadedProducts = [];
@@ -69,6 +76,7 @@ class ProductsProvider with ChangeNotifier {
             'price': product.price,
             'description': product.description,
             'imageUrl': product.imageUrl,
+            'creatorId': userId
           }));
 
       _products.add(
