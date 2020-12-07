@@ -6,8 +6,14 @@ import 'package:http/http.dart' as http;
 import 'productProvider.dart';
 
 class ProductsProvider with ChangeNotifier {
-  String url = 'https://xazululo-sbwl.firebaseio.com/products.json';
+  final String authToken;
+  String url;
   List<ProductProvider> _products = [];
+
+  ProductsProvider(this.authToken, this._products) {
+    this.url =
+        'https://xazululo-sbwl.firebaseio.com/products.json?auth=$authToken';
+  }
 
   List<ProductProvider> get favourites {
     return _products
@@ -15,7 +21,7 @@ class ProductsProvider with ChangeNotifier {
         .toList();
   }
 
-  List<ProductProvider> get all {
+  List<ProductProvider> get products {
     return [..._products];
   }
 

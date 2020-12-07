@@ -23,8 +23,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => AuthProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => ProductsProvider(),
+        ChangeNotifierProxyProvider<AuthProvider, ProductsProvider>(
+          create: (_) => ProductsProvider('', []),
+          update: (ctx, authProvider, previousState) => ProductsProvider(
+              authProvider.token,
+              previousState == null ? [] : previousState.products),
         ),
         ChangeNotifierProvider(
           create: (context) => CartProvider(),
@@ -33,20 +36,22 @@ class MyApp extends StatelessWidget {
           create: (context) => OrdersProvider(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'SBWL',
-        theme: ThemeData(
-          primarySwatch: Colors.lime,
-        ),
-        home: AuthScreen(),
-        routes: {
-          ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
-          CartScreen.routeName: (context) => CartScreen(),
-          OrdersScreen.routeName: (context) => OrdersScreen(),
-          ManageProductsScreen.routeName: (context) => ManageProductsScreen(),
-          UpsertProductScreen.routeName: (context) => UpsertProductScreen()
-        },
+      child: Consumer<AuthProvider>(
+        builder: (ctx, authProvider, _) => (MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'SBWL',
+          theme: ThemeData(
+            primarySwatch: Colors.lime,
+          ),
+          home: authProvider.isAuthenticated ? ProductsScreen() : AuthScreen(),
+          routes: {
+            ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
+            CartScreen.routeName: (context) => CartScreen(),
+            OrdersScreen.routeName: (context) => OrdersScreen(),
+            ManageProductsScreen.routeName: (context) => ManageProductsScreen(),
+            UpsertProductScreen.routeName: (context) => UpsertProductScreen()
+          },
+        )),
       ),
     );
   }

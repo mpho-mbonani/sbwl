@@ -35,13 +35,13 @@ class ManageProductsScreen extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(8),
           child: ListView.builder(
-            itemCount: productProvider.all.length,
+            itemCount: productProvider.products.length,
             itemBuilder: (_, i) => Column(
               children: [
                 ManageProductItem(
-                  id: productProvider.all[i].id,
-                  title: productProvider.all[i].title,
-                  imageUrl: productProvider.all[i].imageUrl,
+                  id: productProvider.products[i].id,
+                  title: productProvider.products[i].title,
+                  imageUrl: productProvider.products[i].imageUrl,
                 ),
                 Divider()
               ],
