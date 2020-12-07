@@ -1,3 +1,4 @@
+import 'package:SBWL/providers/authProvider.dart';
 import 'package:SBWL/providers/cartProvider.dart';
 import 'package:SBWL/providers/productProvider.dart';
 import 'package:SBWL/screens/productDetailScreen.dart';
@@ -9,6 +10,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final product = Provider.of<ProductProvider>(context, listen: false);
     final cart = Provider.of<CartProvider>(context, listen: false);
+    final authentication = Provider.of<AuthProvider>(context, listen: false);
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -36,7 +38,7 @@ class ProductItem extends StatelessWidget {
                   color: Colors.black,
                 ),
                 onPressed: () {
-                  product.toggleFavourite();
+                  product.toggleFavourite(authentication.token);
                 }),
           ),
           title: Text(

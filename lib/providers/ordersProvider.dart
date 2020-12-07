@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:SBWL/widgets/cartItem.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,13 +20,17 @@ class OrderProduct {
 
 class OrdersProvider with ChangeNotifier {
   List<OrderProduct> _orders = [];
+  final String authToken;
+
+  OrdersProvider(this.authToken, this._orders);
 
   List<OrderProduct> get orders {
     return [..._orders];
   }
 
   Future<void> fetchAndSetOrders() async {
-    final url = 'https://xazululo-sbwl.firebaseio.com/orders.json';
+    final url =
+        'https://xazululo-sbwl.firebaseio.com/orders.json?auth=$authToken';
     final response = await http.get(url);
     final List<OrderProduct> loadedOrders = [];
     final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -56,7 +59,9 @@ class OrdersProvider with ChangeNotifier {
 
   Future<void> addOrder(
       List<CartProduct> cartProducts, double totalAmount) async {
-    final url = 'https://xazululo-sbwl.firebaseio.com/orders.json';
+    // add error handling
+    final url =
+        'https://xazululo-sbwl.firebaseio.com/orders.json?auth=$authToken';
     final timeStamp = DateTime.now();
     final response = await http.post(
       url,

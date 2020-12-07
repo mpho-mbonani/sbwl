@@ -24,11 +24,12 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> toggleFavourite() async {
+  Future<void> toggleFavourite(String authToken) async {
     final currentStatus = isFavourite;
     isFavourite = !isFavourite;
     notifyListeners();
-    final patchUrl = 'https://xazululo-sbwl.firebaseio.com/products/$id.json';
+    final patchUrl =
+        'https://xazululo-sbwl.firebaseio.com/products/$id.json?auth=$authToken';
     try {
       final response = await http.patch(patchUrl,
           body: json.encode({'isFavourite': isFavourite}));

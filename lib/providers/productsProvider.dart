@@ -80,7 +80,8 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> updateProduct(String id, ProductProvider product) async {
     final productIndex = _products.indexWhere((prod) => prod.id == id);
-    final patchUrl = 'https://xazululo-sbwl.firebaseio.com/products/$id.json';
+    final patchUrl =
+        'https://xazululo-sbwl.firebaseio.com/products/$id.json?auth=$authToken';
     try {
       await http.patch(patchUrl,
           body: json.encode({
@@ -99,7 +100,8 @@ class ProductsProvider with ChangeNotifier {
   Future<void> deleteProduct(String id) async {
     // test deleting product
     // move urls to configuration file
-    final deleteUrl = 'https://xazululo-sbwl.firebaseio.com/products/$id.json';
+    final deleteUrl =
+        'https://xazululo-sbwl.firebaseio.com/products/$id.json?auth=$authToken';
     final existingProductIndex = _products.indexWhere((prod) => prod.id == id);
     var existingProduct = _products[existingProductIndex];
     _products.removeAt(existingProductIndex);
