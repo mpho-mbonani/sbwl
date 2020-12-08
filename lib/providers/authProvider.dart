@@ -32,10 +32,9 @@ class AuthProvider with ChangeNotifier {
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
+    try {
     final url =
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyDQbZ72mMLvPF2ZZ00zGaiwTqu-5ZI6Jn4';
-
-    try {
       final response = await http.post(
         url,
         body: json.encode({
@@ -80,7 +79,7 @@ class AuthProvider with ChangeNotifier {
       } else {
         _token = extractedUserData['token'];
         _userId = extractedUserData['userId'];
-        _expiryDate = extractedUserData['expiryDate'];
+        _expiryDate = DateTime.parse(extractedUserData['expiryDate']);
         notifyListeners();
         _autoLogOut();
         return true;

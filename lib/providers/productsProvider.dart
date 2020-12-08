@@ -31,12 +31,12 @@ class ProductsProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
+    try {
     final filterString =
         filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
     var getUrl =
         'https://xazululo-sbwl.firebaseio.com/products.json?auth=$authToken&$filterString';
 
-    try {
       final response = await http.get(getUrl);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       if (extractedData == null) {
