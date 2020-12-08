@@ -20,6 +20,7 @@ class ManageProductsScreen extends StatelessWidget {
     //     Provider.of<ProductsProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
         title: const Text('Manage Products'),
         actions: [

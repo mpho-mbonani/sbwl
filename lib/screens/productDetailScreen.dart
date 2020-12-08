@@ -12,6 +12,7 @@ class ProductDetailScreen extends StatelessWidget {
             .getbyId(ModalRoute.of(context).settings.arguments as String);
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
         title: Text(productProvider.title),
       ),
@@ -22,9 +23,12 @@ class ProductDetailScreen extends StatelessWidget {
             Container(
               height: 300,
               width: double.infinity,
-              child: Image.network(
-                productProvider.imageUrl,
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: productProvider.id,
+                child: Image.network(
+                  productProvider.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(height: 10),

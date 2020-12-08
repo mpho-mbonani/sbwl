@@ -36,7 +36,7 @@ class _OrderItemState extends State<OrderItem> {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '${product.quantity}x R ${product.price}',
+                              '${product.quantity}x R ${product.price.toStringAsFixed(2)}',
                               style: TextStyle(
                                 color: Colors.grey,
                               ),

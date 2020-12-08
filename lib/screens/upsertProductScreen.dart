@@ -158,6 +158,7 @@ class _UpsertProductScreenState extends State<UpsertProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.white,
         title: Text('Product Details'),
         actions: [
