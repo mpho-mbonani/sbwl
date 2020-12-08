@@ -34,17 +34,17 @@ class ProductsProvider with ChangeNotifier {
     try {
     final filterString =
         filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
-    var getUrl =
+    var url =
         'https://xazululo-sbwl.firebaseio.com/products.json?auth=$authToken&$filterString';
 
-      final response = await http.get(getUrl);
+      final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       if (extractedData == null) {
         return;
       }
-      getUrl =
+      url =
           'https://xazululo-sbwl.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
-      final favouritesResponse = await http.get(getUrl);
+      final favouritesResponse = await http.get(url);
       final favouritesData = json.decode(favouritesResponse.body);
 
       final List<ProductProvider> loadedProducts = [];
