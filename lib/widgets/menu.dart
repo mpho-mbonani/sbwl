@@ -1,6 +1,6 @@
-import 'package:SBWL/providers/authProvider.dart';
-import 'package:SBWL/screens/manageProductsScreen.dart';
-import 'package:SBWL/screens/ordersScreen.dart';
+import '../providers/authProvider.dart';
+import '../screens/manageProductsScreen.dart';
+import '../screens/ordersScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,14 +11,14 @@ class Menu extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text('SBWL'),
+            elevation: 0,
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
           ),
           Divider(),
           ListTile(
             leading: Icon(Icons.shop),
-            title: Text('Shop'),
+            title: Text('Store'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/');
             },
@@ -30,6 +30,7 @@ class Menu extends StatelessWidget {
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(OrdersScreen.routeName);
+              //Navigator.of(context).pushReplacement(CustomRoute(builder: (ctx) => OrdersScreen()));
             },
           ),
           Divider(),
